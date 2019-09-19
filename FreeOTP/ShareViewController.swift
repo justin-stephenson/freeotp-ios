@@ -101,7 +101,10 @@ class ShareViewController : UITableViewController, CBCentralManagerDelegate, CBP
                 self.centralManager(manager, didConnect: peripheral)
 
             case .connecting:
-                return
+                return;
+
+            @unknown default:
+                break
             }
 
             Timer.scheduledTimer(

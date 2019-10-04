@@ -80,6 +80,7 @@ open class TokenStore : NSObject {
     }
 
     @discardableResult open func add(_ urlc: URLComponents) -> Token? {
+        // Get the TokenOrder object from the keystore
         var ord: TokenOrder
         if let a = TokenOrder.store.load(TokenOrder.ACCOUNT) {
             ord = a
@@ -90,11 +91,18 @@ open class TokenStore : NSObject {
             }
         }
 
+        // Input, urlc
+        // Create OTP instance
         if let otp = OTP(urlc: urlc) {
+            // Create Token instance
             if let token = Token(otp: otp, urlc: urlc) {
+                // Add OTP account into the TokenOrder array
                 ord.array.insert(otp.account, at: 0)
+                // Add OTP into keystore (account: OTP.account, service: OTP)
                 if OTP.store.add(otp, locked: token.locked) {
+                    // Add Token into keystore (account: Token.account, service: Token)
                     if Token.store.add(token) {
+                        // ??
                         if TokenOrder.store.save(ord) {
                             return token
                         } else {
@@ -109,6 +117,33 @@ open class TokenStore : NSObject {
         }
 
         return nil
+    }
+    
+    func addToken(_ otp: OTP, _ token: Token) -> Token? {
+        var ord: TokenOrder
+        if let a = TokenOrder.store.load(TokenOrder.ACCOUNT) {
+            ord = a
+        } else {
+            ord = TokenOrder()
+            if !TokenOrder.store.add(ord) {
+                return nil
+            }
+        }
+        
+        ord.array.insert(otp.account, at: 0)
+        if OTP.store.add(otp) {
+            if Token.store.add(token) {
+                if TokenOrder.store.save(ord) {
+                    return token
+                } else {
+                    return nil
+                }
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
     }
 
     @discardableResult open func erase(index: Int) -> Bool {

@@ -62,7 +62,8 @@ open class KeychainStore<T: KeychainStorable> {
             add[kSecAttrAccessible as String] = kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
         }
 
-        return SecItemAdd(add as CFDictionary, nil) == errSecSuccess
+        let status = SecItemAdd(add as CFDictionary, nil)
+        return status == errSecSuccess
     }
 
     open var lockingSupported: Bool {

@@ -24,7 +24,9 @@ import UIKit
 class TokensViewController : UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
     fileprivate var lastPath: IndexPath? = nil
     fileprivate var store = TokenStore()
-
+    fileprivate var backup = Backup()
+    fileprivate var alreadyRun = false
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -37,6 +39,7 @@ class TokensViewController : UICollectionViewController, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "token", for: indexPath) as! TokenCell
 
         if let token = store.load(indexPath.row) {
+            print(cell)
             cell.state = nil
 
             ImageDownloader(cell.image.bounds.size).fromURI(token.image, completion: {
@@ -213,7 +216,106 @@ class TokensViewController : UICollectionViewController, UICollectionViewDelegat
     @IBAction func unwindToTokens(_ sender: UIStoryboardSegue) {
         collectionView?.reloadData()
     }
+    
+    func restorePrompt() {
+            let restorePrompt = UIAlertController(title: "Backup Detected", message: "Would you like to restore Tokens from backup?", preferredStyle: .alert)
+            restorePrompt.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil ))
+            restorePrompt.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+        
+                let passPrompt = UIAlertController(title: "Master Password", message: "Please type in your master recovery password.", preferredStyle: .alert)
+                passPrompt.addTextField(configurationHandler: nil)
+                passPrompt.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                    if let input = passPrompt.textFields?[0] {
+                        let rc = self.backup.triggerRestore(with: input.text!)
+                        if rc == 0 {
+                            self.backup.enableBackups(masterPass: input.text!)
+                        } else if rc == 1 {
+                            let message = "Incorrect Password"
+                            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                            self.present(alert, animated: true, completion: nil)
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                alert.dismiss(animated: true, completion: nil)
+                                self.restorePrompt()
+                            }
+                        }
+                        
+                        self.collectionView?.reloadData()
+                    }
+                    }))
+                    self.present(passPrompt, animated: true, completion: nil)
 
+                }))
+            self.present(restorePrompt, animated: true, completion: nil)
+    }
+
+    // Enable backup feature prompt
+    func backupFeaturePrompt() {
+        let title = "Backup Functionality"
+        let message = "Would you like to enable the Backup feature?"
+        let backupPrompt = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        backupPrompt.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            // Yes: Enable backup feature
+            // FIXME: Type in password again
+            let title = "Master Password Setup"
+            let message = "Please enter a master password.\n\nThis password is required to recover your tokens"
+            let passPrompt = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            passPrompt.addTextField(configurationHandler: nil)
+            passPrompt.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                if let input = passPrompt.textFields?[0] {
+                    self.backup.addTestTokens()
+                    self.backup.enableBackups(masterPass: input.text!)
+                    self.collectionView?.reloadData()
+                }
+            }))
+            
+            self.present(passPrompt, animated: true, completion: nil)
+        }))
+        
+        // Not now: Soft disable backups
+        backupPrompt.addAction(UIAlertAction(title: "Not now", style: .default, handler: { _ in
+            print("softDisabled")
+            self.backup.enableAutoBackups()
+        }))
+
+        // Never: Fully disable backup capability
+        backupPrompt.addAction(UIAlertAction(title: "Never", style: .default, handler: { _ in
+            print("Never")
+            self.backup.disableBackups()
+        }))
+        
+        self.present(backupPrompt, animated: true, completion: nil)
+    }
+    
+    // Setup and respond to backup configuration
+    func backupInit() {
+        // Only run once on startup
+        alreadyRun = true
+        
+        if store.count == 0 && backup.backupExists() {
+            restorePrompt()
+        } else {
+            if let backupChoice = backup.loadDecision() {
+                switch backupChoice {
+                case .undecided:
+                    backupFeaturePrompt()
+                case .enabled:
+                    print("Backups enabled, Take new backup!")
+                    backup.performBackup(choice: backupChoice)
+                case .softDisabled:
+                    // backup.performBackup(backupChoice)
+                    print("Already soft Disabled")
+                    // Take new backup(using stored random key?)
+                case .hardDisabled:
+                    // Do nothing?
+                    print("Already Fully disabled")
+                }
+            } else {
+                // FIXME: remove
+                print("Failed to load decision")
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -230,5 +332,13 @@ class TokensViewController : UICollectionViewController, UICollectionViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         collectionView?.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !alreadyRun {
+            backupInit()
+        }
+        self.collectionView?.reloadData()
     }
 }

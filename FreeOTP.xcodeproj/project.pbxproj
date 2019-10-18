@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		285FC2D02363833F00070D85 /* IconsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285FC2CF2363833F00070D85 /* IconsViewController.swift */; };
 		287FCF08233279A4001A9ABE /* moa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CA93CC1B56AA8400828B8B /* moa.framework */; };
 		287FCF09233279A7001A9ABE /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CA93CD1B56AA8400828B8B /* Base32.framework */; };
+		28E3AC5B23590EBB000CAF50 /* FontAwesome.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E3AC5A23590EBB000CAF50 /* FontAwesome.framework */; };
+		28E431A02360DC52009D34F8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E4319F2360DC52009D34F8 /* Extensions.swift */; };
 		F10D88C41B56A3C400482D15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D88C31B56A3C400482D15 /* AppDelegate.swift */; };
 		F10D88C91B56A3C400482D15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F10D88C71B56A3C400482D15 /* Main.storyboard */; };
 		F10D88CB1B56A3C400482D15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F10D88CA1B56A3C400482D15 /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		285FC2CF2363833F00070D85 /* IconsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsViewController.swift; sourceTree = "<group>"; };
+		28E3AC5A23590EBB000CAF50 /* FontAwesome.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesome.framework; path = Carthage/Build/iOS/FontAwesome.framework; sourceTree = "<group>"; };
+		28E4319F2360DC52009D34F8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F10D88C01B56A3C400482D15 /* FreeOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10D88C31B56A3C400482D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F10D88C81B56A3C400482D15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E3AC5B23590EBB000CAF50 /* FontAwesome.framework in Frameworks */,
 				F18FA5361B571E2200B1CEAD /* CoreBluetooth.framework in Frameworks */,
 				F18FA53A1B571E4800B1CEAD /* CoreGraphics.framework in Frameworks */,
 				287FCF09233279A7001A9ABE /* Base32.framework in Frameworks */,
@@ -122,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28E3AC5923590EBB000CAF50 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28E3AC5A23590EBB000CAF50 /* FontAwesome.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F10D88B71B56A3C400482D15 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +151,7 @@
 				F10D88D71B56A3C400482D15 /* FreeOTPTests */,
 				F10D88E21B56A3C500482D15 /* FreeOTPUITests */,
 				F10D88C11B56A3C400482D15 /* Products */,
+				28E3AC5923590EBB000CAF50 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,6 +183,7 @@
 				F10D88C71B56A3C400482D15 /* Main.storyboard */,
 				F10D88CA1B56A3C400482D15 /* Assets.xcassets */,
 				F10D88CF1B56A3C400482D15 /* Info.plist */,
+				28E4319F2360DC52009D34F8 /* Extensions.swift */,
 			);
 			path = FreeOTP;
 			sourceTree = "<group>";
@@ -196,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				F10D88F31B56A54B00482D15 /* EditViewController.swift */,
+				285FC2CF2363833F00070D85 /* IconsViewController.swift */,
 				F10D88F61B56A54B00482D15 /* ImageViewController.swift */,
 				F10D88F91B56A54B00482D15 /* ScanViewController.swift */,
 				F10D88FA1B56A54B00482D15 /* ShareViewController.swift */,
@@ -276,6 +294,7 @@
 				TargetAttributes = {
 					F10D88BF1B56A3C400482D15 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = B72XV3FM4T;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -340,14 +359,16 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Base32.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/moa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FontAwesome.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Base32.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/moa.framework",
+				"$(BUILT_PRODUCTS_DIR/$(FRAMEWORKS_FOLDER_PATH)/FontAwesome.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -359,6 +380,7 @@
 				F10D890D1B56A54B00482D15 /* TokenCell.swift in Sources */,
 				F10D89031B56A54B00482D15 /* EditViewController.swift in Sources */,
 				F10D89051B56A54B00482D15 /* ImageDownloader.swift in Sources */,
+				285FC2D02363833F00070D85 /* IconsViewController.swift in Sources */,
 				F10D89091B56A54B00482D15 /* ScanViewController.swift in Sources */,
 				F10D89071B56A54B00482D15 /* OTP.swift in Sources */,
 				F10D890A1B56A54B00482D15 /* ShareViewController.swift in Sources */,
@@ -367,6 +389,7 @@
 				F10D890F1B56A54B00482D15 /* TokensViewController.swift in Sources */,
 				F10D890C1B56A54B00482D15 /* TokenButton.swift in Sources */,
 				F10D89061B56A54B00482D15 /* ImageViewController.swift in Sources */,
+				28E431A02360DC52009D34F8 /* Extensions.swift in Sources */,
 				F10D890B1B56A54B00482D15 /* Token.swift in Sources */,
 				F10D89101B56A54B00482D15 /* UICollectionViewFlowLayout.swift in Sources */,
 				F18FA5441B58D30800B1CEAD /* KeychainStore.swift in Sources */,
@@ -523,16 +546,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B72XV3FM4T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FreeOTP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.fedorahosted.freeotp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.fedorahosted.freeotp.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -541,16 +567,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B72XV3FM4T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FreeOTP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.fedorahosted.freeotp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.fedorahosted.freeotp.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

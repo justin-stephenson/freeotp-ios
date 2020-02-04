@@ -25,6 +25,7 @@ import AVFoundation
 class ScanViewController : UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var preview: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: AVCaptureSession())
     var enabled: Bool = false
+    var uri: URLComponents!
 
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var activity: UIActivityIndicatorView!
@@ -121,6 +122,14 @@ class ScanViewController : UIViewController, AVCaptureMetadataOutputObjectsDeleg
         )
     }
 
+    func goToURIViewController(_ urlc: URLComponents) {
+        if let uriVC = self.storyboard?.instantiateViewController(withIdentifier: "URI") as? URIViewController {
+            uriVC.inputUrlc = urlc
+            self.navigationController?.pushViewController(uriVC, animated: true)
+        }
+    }
+
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if (!enabled) {
             return
@@ -137,29 +146,10 @@ class ScanViewController : UIViewController, AVCaptureMetadataOutputObjectsDeleg
             }
 
             if let urlc = URLComponents(string: obj.stringValue!) {
-                if let token = TokenStore().add(urlc) {
-                    preview.session?.stopRunning()
+                preview.session?.stopRunning()
 
-                    ImageDownloader(image.bounds.size).fromURI(token.image, completion: {
-                        (image: UIImage) -> Void in
-
-                        UIView.transition(
-                            with: self.image,
-                            duration: 2,
-                            options: .transitionCrossDissolve,
-                            animations: {
-                                self.image.image = image
-                                self.activity.alpha = 0.0
-                                self.activity.stopAnimating()
-                            }, completion: {
-                                (_: Bool) -> Void in
-                                self.navigationController?.popViewController(animated: true)
-                            }
-                        )
-                    })
-                } else {
-                    showError("Invalid token URI!")
-                }
+                // Intercept and set immutable URI
+                self.goToURIViewController(urlc)
             } else {
                 showError("Invalid URI!")
             }

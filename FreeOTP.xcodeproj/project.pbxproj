@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		287FCF08233279A4001A9ABE /* moa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CA93CC1B56AA8400828B8B /* moa.framework */; };
 		287FCF09233279A7001A9ABE /* Base32.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1CA93CD1B56AA8400828B8B /* Base32.framework */; };
+		288422B323E9C3CB00239011 /* URIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288422B223E9C3CB00239011 /* URIViewController.swift */; };
+		28D89AE923EB3B7D0038352D /* URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D89AE823EB3B7D0038352D /* URI.swift */; };
 		F10D88C41B56A3C400482D15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10D88C31B56A3C400482D15 /* AppDelegate.swift */; };
 		F10D88C91B56A3C400482D15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F10D88C71B56A3C400482D15 /* Main.storyboard */; };
 		F10D88CB1B56A3C400482D15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F10D88CA1B56A3C400482D15 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		288422B223E9C3CB00239011 /* URIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URIViewController.swift; sourceTree = "<group>"; };
+		28D89AE823EB3B7D0038352D /* URI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URI.swift; sourceTree = "<group>"; };
 		F10D88C01B56A3C400482D15 /* FreeOTP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeOTP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10D88C31B56A3C400482D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F10D88C81B56A3C400482D15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -200,6 +204,7 @@
 				F10D88F91B56A54B00482D15 /* ScanViewController.swift */,
 				F10D88FA1B56A54B00482D15 /* ShareViewController.swift */,
 				F10D88FF1B56A54B00482D15 /* TokensViewController.swift */,
+				288422B223E9C3CB00239011 /* URIViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				F10D88FB1B56A54B00482D15 /* Token.swift */,
 				F10D88FE1B56A54B00482D15 /* TokenStore.swift */,
 				F18FA5431B58D30800B1CEAD /* KeychainStore.swift */,
+				28D89AE823EB3B7D0038352D /* URI.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F10D890D1B56A54B00482D15 /* TokenCell.swift in Sources */,
+				288422B323E9C3CB00239011 /* URIViewController.swift in Sources */,
 				F10D89031B56A54B00482D15 /* EditViewController.swift in Sources */,
 				F10D89051B56A54B00482D15 /* ImageDownloader.swift in Sources */,
 				F10D89091B56A54B00482D15 /* ScanViewController.swift in Sources */,
@@ -366,6 +373,7 @@
 				F10D890E1B56A54B00482D15 /* TokenStore.swift in Sources */,
 				F10D890F1B56A54B00482D15 /* TokensViewController.swift in Sources */,
 				F10D890C1B56A54B00482D15 /* TokenButton.swift in Sources */,
+				28D89AE923EB3B7D0038352D /* URI.swift in Sources */,
 				F10D89061B56A54B00482D15 /* ImageViewController.swift in Sources */,
 				F10D890B1B56A54B00482D15 /* Token.swift in Sources */,
 				F10D89101B56A54B00482D15 /* UICollectionViewFlowLayout.swift in Sources */,
